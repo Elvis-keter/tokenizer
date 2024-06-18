@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Manage Departments</title>
+</head>
+<body>
+<h1>Manage Departments</h1>
+<form th:action="@{/manager/departments}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <div>
+        <label>Name:</label>
+        <input type="text" th:field="*{name}" />
+    </div>
+    <button type="submit">Save</button>
+</form>
+<div th:each="department : ${departments}">
+    <p th:text="${department.name}"></p>
+    <a th:href="@{/manager/departments/delete(departmentId=${department.id})}">Delete</a>
+</div>
+</body>
+</html>

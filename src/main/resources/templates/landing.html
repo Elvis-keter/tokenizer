@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Landing Page</title>
+</head>
+<body>
+<h1 th:text="${companyName}">Company Name</h1>
+<p th:text="${companyDetails}">Company Details</p>
+<a th:href="@{/login}">Log In</a>
+<a th:href="@{/signup}">Sign Up</a>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Tasks</title>
+</head>
+<body>
+<h1>My Tasks</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.description}"></td>
+        <td th:text="${task.status}"></td>
+        <td th:text="${task.date}"></td>
+        <td>
+            <form th:action="@{/employee/tasks/mark-done/{id}(id=${task.id})}" method="post">
+                <button type="submit">Mark as Done</button>
+            </form>
+            <form th:action="@{/employee/tasks/mark-in-progress/{id}(id=${task.id})}" method="post">
+                <button type="submit">Mark as In Progress</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
