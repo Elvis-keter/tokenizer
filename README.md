@@ -15,4 +15,5 @@ Before you begin, ensure you have the following installed:
 Java Development Kit (JDK) 11 or later
 MySQL 8.0 or compatible database
 Maven 3.8.5 or later
+
 IDE with Spring Boot support (IntelliJ IDEA, Eclipse, etc.)
