@@ -20,6 +20,10 @@ public class UsersService {
         usersMapper.updateUserRole(userId, "MANAGER");
     }
 
+    public void assignEmployeeRole(Long userId) {
+        usersMapper.updateUserRole(userId, "EMPLOYEE");
+    }
+
     public List<Users> findAll() {
         return usersMapper.findAll();
     }

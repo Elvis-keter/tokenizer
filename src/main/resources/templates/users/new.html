@@ -13,7 +13,11 @@
     <input type="password" id="password" th:field="*{password}" />
     <br>
     <label for="role">Role:</label>
-    <input type="text" id="role" th:field="*{role}" />
+    <select id="role" th:field="*{role}">
+        <option value="manager">Manager</option>
+        <option value="employee">Employee</option>
+    </select>
+<!--    <input type="text" id="role" th:field="*{role}" />-->
     <br>
     <button type="submit">Save</button>
 </form>

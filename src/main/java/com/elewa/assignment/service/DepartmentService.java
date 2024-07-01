@@ -16,7 +16,7 @@ public class DepartmentService {
 
     public List<Department> findAll() {return departmentMapper.findAll();}
 
-    public Department findById(Long departmentId) {return departmentMapper.findById(departmentId);}
+    public Department findById(Long id) {return departmentMapper.findById(id);}
     public void saveDepartment(Department department) {
         departmentMapper.saveDepartment(department);
     }

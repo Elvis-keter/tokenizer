@@ -12,6 +12,10 @@
         SELECT * FROM departments
     </select>
 
+    <select id="findById" resultMap="DepartmentResultMap">
+        SELECT * FROM departments WHERE id = #{id}
+    </select>
+
     <insert id="saveDepartment" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO departments (name) VALUES (#{name})
     </insert>

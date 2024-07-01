@@ -31,7 +31,7 @@ public class EmployeeController {
 //    }
     TaskService taskService;
 
-    @GetMapping
+    @GetMapping("/tasks")
     public String getAllTasks(Model model) {
         model.addAttribute("tasks", taskService.findAll());
         return "index";

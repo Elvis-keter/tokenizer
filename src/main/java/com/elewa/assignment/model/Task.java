@@ -35,6 +35,12 @@ public class Task {
         this.date = date;
     }
 
+    private Long id;
+    private String description;
+    private String status;
+    private LocalDate date;
+    private Long assignTo;
+
     public Long getAssignTo() {
         return assignTo;
     }
@@ -43,9 +49,5 @@ public class Task {
         this.assignTo = assignTo;
     }
 
-    private Long id;
-    private String description;
-    private String status;
-    private LocalDate date;
-    private Long assignTo;
+
 }

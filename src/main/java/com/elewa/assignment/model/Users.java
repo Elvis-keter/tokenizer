@@ -4,15 +4,6 @@ public class Users {
     private Long id;
     private String username;
     private String password;
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     private String email;
     private String role;
 
@@ -48,6 +39,10 @@ public class Users {
         this.role = role;
     }
 
+    public String getEmail() { return email;}
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
 }

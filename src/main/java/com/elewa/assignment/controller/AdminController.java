@@ -33,6 +33,12 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
+    @GetMapping("/users/assign-employee/{id}")
+    public String assignEmployeeRole(@PathVariable Long id) {
+        usersService.assignEmployeeRole(id);
+        return "redirect:/admin/users";
+    }
+
     @GetMapping("/users/new")
     public String showNewUserForm(Model model) {
         model.addAttribute("user", new Users());

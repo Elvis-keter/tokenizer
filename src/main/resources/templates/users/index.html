@@ -4,7 +4,7 @@
     <title>User Management</title>
 </head>
 <body>
-<h1>User Management</h1>
+<!--<h1>User Management</h1>-->
 <a th:href="@{/admin/users/new}">Create New User</a>
 <table>
     <thead>
@@ -22,6 +22,7 @@
         <td th:text="${user.role}"></td>
         <td>
             <a th:href="@{/admin/users/assign-manager/{id}(id=${user.id})}">Assign Manager</a>
+            <a th:href="@{/admin/users/assign-employee/{id}(id=${user.id})}">Assign Employee</a>
             <a th:href="@{/admin/users/delete/{id}(id=${user.id})}">Delete</a>
         </td>
     </tr>

@@ -23,6 +23,7 @@ public class ManagerController {
     @GetMapping
     public String getAllTasks(Model model) {
         model.addAttribute("tasks", taskService.findAll());
+        model.addAttribute("users", usersService.findAll());
         return "tasks/index";
     }
 
