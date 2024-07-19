@@ -5,6 +5,7 @@ import com.elewa.assignment.model.Users;
 import com.elewa.assignment.service.DepartmentService;
 import com.elewa.assignment.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin")
 public class AdminController {
     private final DepartmentService departmentService;
+    private UsersService usersService;
 
     public AdminController(DepartmentService departmentService, UsersService usersService) {
         this.departmentService = departmentService;
         this.usersService = usersService;
     }
-
-    private UsersService usersService;
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
@@ -52,9 +52,9 @@ public class AdminController {
     }
 
     @GetMapping("/users/delete/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         usersService.deleteUser(id);
-        return "redirect:/admin/users";
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/departments")

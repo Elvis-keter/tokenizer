@@ -21,3 +21,23 @@ CREATE TABLE users (
     email VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
+
+-- Deleting a row
+DELETE FROM users WHERE id = 1;
+
+-- Creating a temporary table
+CREATE TEMPORARY TABLE temp_table AS SELECT * FROM users;
+
+-- Truncating the original table
+TRUNCATE TABLE users;
+
+-- Inserting the data back from the temporary table
+INSERT INTO users (name, role, actions)
+SELECT name, role, actions
+FROM temp_table;
+
+-- Dropping the temporary table
+DROP TEMPORARY TABLE temp_table;
+
+-- Viewing the updated table
+SELECT * FROM users;

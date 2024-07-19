@@ -2,36 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Tasks</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../js/dashboard.js"></script>
 </head>
 <body>
-<!--<h1>Tasks</h1>-->
-<a th:href="@{/manager/tasks/new}">Add New Task</a>
-<table>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Due Date</th>
-        <th>Assigned To</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="task : ${tasks}">
-        <td th:text="${task.id}">1</td>
-        <td th:text="${task.description}">Task Description</td>
-        <td th:text="${task.status}">Status</td>
-        <td th:text="${task.date}">Due Date</td>
-        <td>
+    <div id="theTasks">
+        <div th:replace="~{landing :: navbar}"></div>
+
+        <a th:href="@{/manager/tasks/new}">Add New Task</a>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Due Date</th>
+                <th>Assigned To</th>
+                <th>Actions</th>
+            </tr>
+            <tr th:each="task : ${tasks}">
+                <td th:text="${task.id}">1</td>
+                <td th:text="${task.description}">Task Description</td>
+                <td th:text="${task.status}">Status</td>
+                <td th:text="${task.date}">Due Date</td>
+                <td>
             <span th:each="user : ${users}"
-                th:if="${user.id} == ${task.assignTo}"
-                th:text="${user.username}">
+                  th:if="${user.id} == ${task.assignTo}"
+                  th:text="${user.username}">
                 Assigned To
             </span>
-        </td>
-        <td>
-            <a th:href="@{/manager/tasks/edit/{id}(id=${task.id})}">Edit</a>
-            <a th:href="@{/manager/tasks/delete/{id}(id=${task.id})}">Delete</a>
-        </td>
-    </tr>
-</table>
+                </td>
+                <td>
+                    <a th:href="@{/manager/tasks/edit/{id}(id=${task.id})}">Edit</a>
+                    <a th:href="@{/manager/tasks/delete/{id}(id=${task.id})}">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

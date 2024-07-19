@@ -12,7 +12,10 @@
     </div>
     <div>
         <label for="status">Status:</label>
-        <input type="text" id="status" th:field="*{status}" />
+        <select id="status" th:field="*{status}">
+            <option value="In progress">In progress</option>
+            <option value="Done">Done</option>
+        </select>
     </div>
     <div>
         <label for="date">Due Date:</label>
