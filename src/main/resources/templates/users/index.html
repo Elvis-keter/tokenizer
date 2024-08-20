@@ -9,9 +9,8 @@
 <body>
     <div id="theUsers">
         <div th:replace="~{landing :: navbar}"></div>
-
         <!--<h1>User Management</h1>-->
-        <a th:href="@{/admin/users/new}">Create New User</a>
+
         <table id="usersTable">
             <thead>
             <tr>
@@ -35,6 +34,8 @@
             </tr>
             </tbody>
         </table>
+        <br/>
+        <a th:href="@{/admin/users/new}">New</a>
     </div>
 </body>
 </html>

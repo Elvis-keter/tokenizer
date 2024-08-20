@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>My Tasks</title>
+    <title>My tasks</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../js/dashboard.js"></script>
 </head>
 <body>
-<h1>My Tasks</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Description</th>
-        <th>Status</th>
-        <th>Date</th>
-        <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="task : ${tasks}">
-        <td th:text="${task.id}"></td>
-        <td th:text="${task.description}"></td>
-        <td th:text="${task.status}"></td>
-        <td th:text="${task.date}"></td>
-        <td>
-            <form th:action="@{/employee/tasks/mark-done/{id}(id=${task.id})}" method="post">
-                <button type="submit">Mark as Done</button>
-            </form>
-            <form th:action="@{/employee/tasks/mark-in-progress/{id}(id=${task.id})}" method="post">
-                <button type="submit">Mark as In Progress</button>
-            </form>
-        </td>
-    </tr>
-    </tbody>
-</table>
+    <div id="theProfile">
+        <div th:replace="~{landing :: navbar}"></div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Due Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <span th:each="task : ${tasks}"
+                          th:if="${task.assignTo} == ${user.id}"
+                          th:text="${task.description}">
+                    </span>
+                </td>
+                <td>
+                    <span th:each="task : ${tasks}"
+                          th:if="${task.assignTo} == ${user.id}"
+                          th:text="${task.status}">
+                    </span>
+                </td>
+                <td>
+                    <span th:each="task : ${tasks}"
+                          th:if="${task.assignTo} == ${user.id}"
+                          th:text="${task.date}">
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.elewa.assignment.controller;
 import com.elewa.assignment.model.Department;
 import com.elewa.assignment.model.Users;
 import com.elewa.assignment.service.DepartmentService;
+import com.elewa.assignment.service.TaskService;
 import com.elewa.assignment.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,16 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private final DepartmentService departmentService;
-    private UsersService usersService;
+    private DepartmentService departmentService;
 
-    public AdminController(DepartmentService departmentService, UsersService usersService) {
+    public AdminController(DepartmentService departmentService, UsersService usersService, TaskService taskService) {
         this.departmentService = departmentService;
         this.usersService = usersService;
+        this.taskService = taskService;
     }
+
+    private UsersService usersService;
+    private TaskService taskService;
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
@@ -94,15 +98,20 @@ public class AdminController {
         return "redirect:/admin/departments";
     }
 
-    @PostMapping("/move-employee")
-    public String moveEmployee(@RequestParam Long employeeId, @RequestParam Long newDepartmentId) {
-        departmentService.moveEmployee(employeeId, newDepartmentId);
-        return "redirect:/admin/employees";
-    }
-
-    @PostMapping("/remove-employee")
-    public String removeEmployee(@RequestParam Long employeeId) {
-        departmentService.removeEmployee(employeeId);
-        return "redirect:/admin/employees";
-    }
+//    @GetMapping("/empl")
+//    public String getAllEmployees(Model model) {
+//
+//    }
+//
+//    @PostMapping("/move-employee")
+//    public String moveEmployee(@RequestParam Long employeeId, @RequestParam Long newDepartmentId) {
+//        departmentService.moveEmployee(employeeId, newDepartmentId);
+//        return "redirect:/admin/employees";
+//    }
+//
+//    @PostMapping("/remove-employee")
+//    public String removeEmployee(@RequestParam Long employeeId) {
+//        departmentService.removeEmployee(employeeId);
+//        return "redirect:/admin/employees";
+//    }
 }

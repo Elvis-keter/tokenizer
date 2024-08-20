@@ -1,5 +1,7 @@
 package com.elewa.assignment.model;
 
+import java.time.Instant;
+
 public class Users {
     private Long id;
     private String username;

@@ -11,8 +11,11 @@ public interface UsersMapper {
     Users findByUsername(String username);
     List<Users> findAll();
     void saveUser(Users users);
+
     void updateUser(Users users);
-    void updateRole(@Param("id") Long id, @Param("role") String role);
+
+    Users findByRoleId(String role);
+//    void findByRoleId(@Param("id") Long id, @Param("role") String role);
 
     void updateUserRole(@Param("id") Long id, @Param("role") String role);
     void deleteUser(Long id);

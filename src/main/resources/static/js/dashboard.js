@@ -48,10 +48,10 @@ function hideAllSections() {
     $('#theUsers').hide().html('');
     $('#theHome').hide().html('');
     $('#theDep').hide().html('');
+    $('#theProfile').hide().html('');
 }
 
 function loadingHome(url) {
-    $('#loaderUsers').show();
     hideAllSections();
 
     $.ajax({
@@ -63,9 +63,6 @@ function loadingHome(url) {
         },
         error: function (err){
             alert("Error loading content" + err);
-        },
-        complete: function () {
-            $('#loaderUsers').hide();
         }
     });
 
@@ -73,7 +70,6 @@ function loadingHome(url) {
 }
 
 function loadingUsers(url) {
-    $('#loaderUsers').show();
     hideAllSections();
 
     $.ajax({
@@ -85,9 +81,25 @@ function loadingUsers(url) {
         },
         error: function (err){
             alert("Error loading content" + err);
+        }
+    });
+
+    return false;
+}
+
+
+function loadingProfile(url, userId) {
+    hideAllSections();
+
+    $.ajax({
+        type: "GET",
+        url: url,
+        data: {userId: userId},
+        success: function (data) {
+            $('#theProfile').show().html(data);
         },
-        complete: function () {
-            $('#loaderUsers').hide();
+        error: function (err){
+            alert("Error loading content" + err);
         }
     });
 
@@ -95,7 +107,6 @@ function loadingUsers(url) {
 }
 
 function loadingDep(url) {
-    $('#loaderUsers').show();
     hideAllSections();
 
     $.ajax({
@@ -107,9 +118,6 @@ function loadingDep(url) {
         },
         error: function (err){
             alert("Error loading content" + err);
-        },
-        complete: function () {
-            $('#loaderUsers').hide();
         }
     });
 
@@ -117,7 +125,6 @@ function loadingDep(url) {
 }
 
 function loadingTasks(url) {
-    $('#loaderUsers').show();
     hideAllSections();
 
     $.ajax({
@@ -129,9 +136,6 @@ function loadingTasks(url) {
         },
         error: function (err){
             alert("Error loading content" + err);
-        },
-        complete: function () {
-            $('#loaderUsers').hide();
         }
     });
 

@@ -10,7 +10,6 @@
     <div id="theTasks">
         <div th:replace="~{landing :: navbar}"></div>
 
-        <a th:href="@{/manager/tasks/new}">Add New Task</a>
         <table>
             <tr>
                 <th>ID</th>
@@ -26,11 +25,11 @@
                 <td th:text="${task.status}">Status</td>
                 <td th:text="${task.date}">Due Date</td>
                 <td>
-            <span th:each="user : ${users}"
-                  th:if="${user.id} == ${task.assignTo}"
-                  th:text="${user.username}">
-                Assigned To
-            </span>
+                    <span th:each="user : ${users}"
+                          th:if="${user.id} == ${task.assignTo}"
+                          th:text="${user.username}">
+                        Assigned To
+                    </span>
                 </td>
                 <td>
                     <a th:href="@{/manager/tasks/edit/{id}(id=${task.id})}">Edit</a>
@@ -38,6 +37,8 @@
                 </td>
             </tr>
         </table>
+        <br/>
+        <a th:href="@{/manager/tasks/new}">New</a>
     </div>
 </body>
 </html>

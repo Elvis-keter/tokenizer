@@ -15,7 +15,16 @@
     <label for="email">Email:</label>
     <input type="email" id="email" th:field="*{email}" required />
     <br>
+    <label>Role</label>
+    <select th:field="*{role}">
+        <option value="ROLE_USER">Employee</option>
+        <option value="ROLE_ADMIN">Manager</option>
+    </select>
+
+    <br>
     <button type="submit">Sign Up</button>
 </form>
+
+<p th:text="${message}"></p>
 </body>
 </html>

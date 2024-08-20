@@ -14,7 +14,6 @@ public interface TaskMapper {
 
     List<Task> findAll();
 
-
     void saveTask(Task task);
 
     void updateTask(Task task);

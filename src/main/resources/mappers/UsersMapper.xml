@@ -7,6 +7,7 @@
         <id property="id" column="id"/>
         <result property="username" column="username"/>
         <result property="password" column="password"/>
+        <result property="email" column="email"/>
         <result property="role" column="role"/>
     </resultMap>
 
@@ -22,12 +23,26 @@
         SELECT * FROM users
     </select>
 
-    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (username, password, role) VALUES (#{username}, #{password}, #{role})
+    <select id="findBYEmail" parameterType="String" resultMap="UserResultMap">
+        SELECT * FROM users WHERE email = #{email}
+    </select>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, password, email, role)
+        VALUES (#{username}, #{password}, #{email}, #{role})
     </insert>
 
+    <insert id="saveUser" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (username, password, email, role)
+        VALUES (#{username}, #{password}, #{email}, #{role})
+    </insert>
+
+    <select id="findByRoleId" resultMap="UserResultMap">
+        SELECT * FROM users WHERE role = #{usersId}
+    </select>
+
     <update id="updateUser">
-        UPDATE users SET username=#{username}, password=#{password}, role=#{role}
+        UPDATE users SET username=#{username}, password=#{password}, email=#{email}, role=#{role}
         WHERE id=#{id}
     </update>
 
@@ -39,3 +54,4 @@
         DELETE FROM users WHERE id = #{id}
     </delete>
 </mapper>
+
