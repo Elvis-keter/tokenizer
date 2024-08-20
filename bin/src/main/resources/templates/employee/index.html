@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My tasks</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../js/dashboard.js"></script>
+</head>
+<body>
+    <div id="theProfile">
+        <div th:replace="~{landing :: navbar}"></div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Due Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.role}"></td>
+                <td>
+                    <span th:each="task : ${tasks}"
+                          th:if="${task.assignTo} == ${user.id}"
+                          th:text="${task.description}">
+                    </span>
+                </td>
+                <td>
+                    <span th:each="task : ${tasks}"
+                          th:if="${task.assignTo} == ${user.id}"
+                          th:text="${task.status}">
+                    </span>
+                </td>
+                <td>
+                    <span th:each="task : ${tasks}"
+                          th:if="${task.assignTo} == ${user.id}"
+                          th:text="${task.date}">
+                    </span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

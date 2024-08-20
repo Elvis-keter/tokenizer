@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Department</title>
+</head>
+<body>
+<h1>Edit Department</h1>
+<form th:action="@{/admin/departments/update/{id}(id=${department.id})}" th:object="${department}" method="post">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" />
+    </div>
+    <button type="submit">Update</button>
+</form>
+<a th:href="@{/admin/departments}">Back to Departments</a>
+</body>
+</html>
