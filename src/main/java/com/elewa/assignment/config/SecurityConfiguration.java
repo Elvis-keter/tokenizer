@@ -41,7 +41,7 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/signup", "/login", "/refreshtoken").permitAll()
+                        .requestMatchers("/signup", "/authenticate","/refreshtoken","/verify").permitAll()
                         .requestMatchers("/admin/").hasRole("ADMIN")
                         .requestMatchers("/manager/tasks").hasRole("USER")
                         .requestMatchers("/employee/**").hasRole("USER")
@@ -51,11 +51,6 @@ public class SecurityConfiguration {
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .formLogin(form -> form
-                        .loginPage("/login").permitAll()
-                )
-//                .formLogin(withDefaults())
-
                 .logout(logout -> logout
                         .invalidateHttpSession(true)
                         .clearAuthentication(true)

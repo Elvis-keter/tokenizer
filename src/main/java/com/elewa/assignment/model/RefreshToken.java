@@ -11,8 +11,9 @@ import java.time.Instant;
 public class RefreshToken {
     private Long id;
     private String token;
+    private Instant createdAt;
     private Instant expiryDate;
-
+    private Users users;
     public Users getUsers() {
         return users;
     }
@@ -20,8 +21,6 @@ public class RefreshToken {
     public void setUsers(Users users) {
         this.users = users;
     }
-
-    private Users users;
 
     public Long getId() {
         return id;
@@ -37,6 +36,14 @@ public class RefreshToken {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Instant getExpiryDate() {

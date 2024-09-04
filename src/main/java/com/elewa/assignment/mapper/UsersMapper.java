@@ -9,8 +9,13 @@ import java.util.List;
 public interface UsersMapper {
     Users findById(Long id);
     Users findByUsername(String username);
+    Users findByEmail(String email);
+    Users findByToken(String token);
     List<Users> findAll();
+
+    Boolean emailExists(String email);
     void saveUser(Users users);
+    void insertUser(Users users);
 
     void updateUser(Users users);
 

@@ -8,8 +8,10 @@ import com.elewa.assignment.service.UsersService;
 import com.elewa.assignment.util.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,9 +23,6 @@ import org.springframework.web.bind.annotation.*;
 public class UsersController {
 
     private final UsersService usersService;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private RefreshTokenService refreshTokenService;
@@ -41,56 +40,30 @@ public class UsersController {
 
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@Valid @RequestBody Users users) {
-        String rawPassword = users.getPassword();
+        if (usersService.findByEmail(users.getEmail()) != null) {
+            return ResponseEntity.badRequest().body("Email is already registered");
+        }
 
+        if (usersService.findByUsername(users.getUsername()) != null) {
+            return ResponseEntity.badRequest().body("Username is already taken");
+        }
+
+        String rawPassword = users.getPassword();
         users.setPassword(passwordEncoder.encode(rawPassword));
         // Assign default role
         users.setRole("EMPLOYEE");
         usersService.saveUser(users);
-        Users savedUser = usersService.findByUsername(users.getUsername());
 
-        Users rawUser = new Users();
-        rawUser.setUsername(savedUser.getUsername());
-        //pass uncoded password
-        rawUser.setPassword(rawPassword);
-        rawUser.setId(savedUser.getId());
-        rawUser.setEmail(savedUser.getEmail());
-        rawUser.setRole(savedUser.getRole());
-
-        return authenticateUser(rawUser);
+        return ResponseEntity.ok("Please check your email for verification.");
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Users users) throws Exception{
-
-        return authenticateUser(users);
-    }
-
-    public ResponseEntity<?> authenticateUser(Users users) {
-        try {
-            System.out.println("JWT Line one: " );
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(users.getUsername(), users.getPassword())
-            );
-            System.out.println("JWT Line Two: ");
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("JWT Line Three: ");
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            System.out.println("JWT Line Four: ");
-            String jwt = jwtTokenUtil.generateToken(userDetails);
-            RefreshToken refreshToken = refreshTokenService.createRefreshToken(users.getId());
-
-            return ResponseEntity.ok(new JwtResponse(
-                    users.getId(),
-                    userDetails.getUsername(),
-                    users.getEmail(),
-                    jwt,
-                    refreshToken.getToken(),
-                    users.getRole()
-            ));
-        } catch (Exception e) {
-            System.out.println("An error occurred: " + e.getMessage());
-            return ResponseEntity.status(500).body("Internal server error");
+    @GetMapping("/verify")
+    public ResponseEntity<?> verifyUser(@RequestParam("token") String token) {
+        boolean isVerified = usersService.verifyUser(token);
+        if (isVerified) {
+            return ResponseEntity.ok("Email verified successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid or expired verification token.");
         }
     }
 
@@ -99,14 +72,17 @@ public class UsersController {
         String requestRefreshToken = request.getRefreshToken();
         return refreshTokenService.findByToken(requestRefreshToken)
                 .map(refreshTokenService::verifyExpiration)
-                .map(RefreshToken::getUsers)
-                .map(users -> {
-                    String token = jwtTokenUtil.generateTokenFromUsername(users.getUsername());
+                .map(refreshToken -> {
+                    String token = jwtTokenUtil.generateTokenFromUsername(refreshToken.getUsers().getUsername());
                     return ResponseEntity.ok(new RefreshResponse(
-                            token, requestRefreshToken
+                            token, requestRefreshToken,
+                            refreshToken.getCreatedAt(),
+                            refreshToken.getExpiryDate()
                     ));
                 })
-                .orElseThrow(() -> new RefreshTokenException(requestRefreshToken,
-                        "Refresh token is not in the database!"));
+                .orElseThrow(() -> new RefreshTokenException(
+                        requestRefreshToken,
+                        "Refresh token has expired. Please make a new signin request"
+                ));
     }
 }

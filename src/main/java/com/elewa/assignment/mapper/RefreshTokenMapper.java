@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface RefreshTokenMapper {
     RefreshToken findByToken(String token);
 
-    void deleteToken(Long id);
+    void confirmEmail(String token);
+    void deleteByToken(String token);
+    void deleteByUserId(Long id);
     void saveTokens(RefreshToken refreshToken);
 }

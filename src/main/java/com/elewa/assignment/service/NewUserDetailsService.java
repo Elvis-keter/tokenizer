@@ -17,41 +17,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-//public class NewUserDetailsService implements UserDetailsService {
-//    @Autowired
-//    private UsersMapper usersMapper;
-//    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-////        Users users = usersMapper.findByUsername(username);
-////
-////        if(users == null) {
-////            throw new UsernameNotFoundException("User not found with username: " + username);
-////        };
-////
-//
-//        if ("elvis".equals(username)) {
-//            return new User("elvis", passwordEncoder.encode("elvis"),AuthorityUtils.createAuthorityList("ROLE_USER"));
-//        } else if ("user".equals(username)) {
-//            return new User("user", passwordEncoder.encode("password"), AuthorityUtils.createAuthorityList("ROLE_USER"));
-//        } else if ("admin".equals(username)) {
-//            return new User("admin", passwordEncoder.encode("admin"), AuthorityUtils.createAuthorityList("ROLE_ADMIN"));
-//        } else {
-//            throw new UsernameNotFoundException("User not found with username: " + username);
-//        }
-//    }
-//}
-//
-
-
 public class NewUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UsersMapper userMapper;
-
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users users = userMapper.findByUsername(username);
@@ -68,8 +37,3 @@ public class NewUserDetailsService implements UserDetailsService {
         );
     }
 }
-
-//
-//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), authorities);
-//    }
-//}

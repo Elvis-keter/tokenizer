@@ -8,6 +8,33 @@ public class Users {
     private String password;
     private String email;
     private String role;
+    private boolean isVerified;
+    private String verificationToken;
+    private Instant verificationExpiry;
+
+    public boolean isVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
+    }
+
+    public String getVerificationToken() {
+        return verificationToken;
+    }
+
+    public void setVerificationToken(String verificationToken) {
+        this.verificationToken = verificationToken;
+    }
+
+    public Instant getVerificationExpiry() {
+        return verificationExpiry;
+    }
+
+    public void setVerificationExpiry(Instant verificationExpiry) {
+        this.verificationExpiry = verificationExpiry;
+    }
 
     public Long getId() {
         return id;

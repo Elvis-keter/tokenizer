@@ -6,6 +6,7 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -46,7 +47,6 @@ public class JwtExceptionHandler {
     public ResponseEntity<Object> unsupportedException(UnsupportedJwtException e) {
         return buildResponse(HttpStatus.UNAUTHORIZED, "Token is unsupported");
     }
-
     private ResponseEntity<Object> buildResponse(HttpStatus status, String message) {
         Map<String, Object> response = new HashMap<>();
         response.put("timestamp", LocalDateTime.now());

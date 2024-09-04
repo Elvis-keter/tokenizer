@@ -97,21 +97,4 @@ public class AdminController {
         departmentService.deleteDepartment(id);
         return "redirect:/admin/departments";
     }
-
-//    @GetMapping("/empl")
-//    public String getAllEmployees(Model model) {
-//
-//    }
-//
-//    @PostMapping("/move-employee")
-//    public String moveEmployee(@RequestParam Long employeeId, @RequestParam Long newDepartmentId) {
-//        departmentService.moveEmployee(employeeId, newDepartmentId);
-//        return "redirect:/admin/employees";
-//    }
-//
-//    @PostMapping("/remove-employee")
-//    public String removeEmployee(@RequestParam Long employeeId) {
-//        departmentService.removeEmployee(employeeId);
-//        return "redirect:/admin/employees";
-//    }
 }
